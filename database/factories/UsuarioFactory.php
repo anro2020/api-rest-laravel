@@ -21,7 +21,7 @@ class UsuarioFactory extends Factory
             'usu_correo' => $this->faker->unique()->safeEmail(),
             'usu_contrasenia' => $contrasenia ?: $contrasenia = bcrypt('secreta'),
             'usu_verificado' => $verificado = $this-> faker->randomElement([Usuario::USUARIO_VERIFICADO, Usuario::USUARIO_NO_VERIFICADO]),
-            'usu_activo' => $this->faker->randomElement([Usuario::USUARIO_ACTIVO, Usuario::USUARIO_INACTIVO]),
+            'usu_activo' => $this->faker->randomElement([Usuario::USUARIO_ACTIVADO, Usuario::USUARIO_DESACTIVADO]),
             'usu_token_verificacion' => $verificado == Usuario::USUARIO_VERIFICADO ? null : Usuario::generarTokenVerficacion(),
             'usu_admin' => $this->faker->randomElement([Usuario::USUARIO_ADMINISTRADOR, Usuario::USUARIO_REGULAR])
         ];

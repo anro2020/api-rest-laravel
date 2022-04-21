@@ -19,7 +19,7 @@ class UsuarioPublicacion extends Model
     //relaciones
     public function usuario()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Usuario::class);
     }
 
     public function publicacion()

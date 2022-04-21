@@ -23,8 +23,9 @@ class CreateUsuariosTable extends Migration
             $table->string('usu_token_verificacion')->nullable();
             $table->string('usu_llaveUnica')->nullable();
             $table->string('usu_admin')->default(Usuario::USUARIO_REGULAR);;
-            $table->string('usu_activo')->default(Usuario::USUARIO_INACTIVO);
+            $table->string('usu_activo')->default(Usuario::USUARIO_DESACTIVADO);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

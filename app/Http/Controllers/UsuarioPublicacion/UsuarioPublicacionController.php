@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UsuarioPublicacion;
 
 use App\Http\Controllers\Controller;
+use App\Models\UsuarioPublicacion;
 use Illuminate\Http\Request;
 
 class UsuarioPublicacionController extends Controller
@@ -15,6 +16,13 @@ class UsuarioPublicacionController extends Controller
     public function index()
     {
         //
+    }
+
+    public function MostrarPublicaciones()
+    {
+      $publicaciones = UsuarioPublicacion::has('usuario');
+
+      return response()->json(["datos" => $publicaciones], 200);
     }
 
     /**

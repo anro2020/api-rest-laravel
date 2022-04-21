@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Publicacion;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,7 @@ class CreatePublicacionesTable extends Migration
             $table->string('pub_descripcion');
             $table->string('pub_activa')->default(Publicacion::PUBLICACION_INACTIVA);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

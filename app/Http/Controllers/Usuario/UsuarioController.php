@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Usuario;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
-class UsuarioController extends Controller
+class UsuarioController extends ApiController
 {
 
     public function MostrarUsuarios()
     {
         $usuarios = Usuario::all();
 
-        return response()->json(['datos' => $usuarios], 200);
+        return $this->showAll($usuarios);
     }
 
     /**
@@ -45,7 +45,7 @@ class UsuarioController extends Controller
         //Realizar peticion
         $usuario = Usuario::create($datos);
 
-        return response()->json(['datos' => $usuario], 201);
+        return $this->showOne($usuario, 201);
     }
 
     /**
@@ -59,7 +59,7 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::findOrFail($id);
 
-        return response()->json(["datos" => $usuario], 200);
+        return $this->showOne($usuario);
     }
 
     /**
@@ -104,7 +104,7 @@ class UsuarioController extends Controller
         {
             if(!$usuario->esVerificado())
             {
-                return response()->json(['error' => 'Unicamente los usuarios verificados pueden cambiar su valor de administrador.', 'codigo' => 409], 409);
+                return $this->errorResponse('Unicamente los usuarios verificados pueden cambiar su valor de administrador.', 409);
             }
 
             $usuario->usu_admin = $request->usu_admin;
@@ -114,7 +114,7 @@ class UsuarioController extends Controller
         {
             if(!$usuario->esActivo())
             {
-                return response()->json(['error' => 'Unicamente los usuarios administradores pueden activar usuarios.', 'codigo' => 409], 409);
+                return $this->errorResponse('Unicamente los usuarios administradores pueden activar usuarios.', 409);
             }
 
             $usuario->usu_activo = $request->usu_activo;
@@ -122,12 +122,12 @@ class UsuarioController extends Controller
 
         if (!$usuario->isDirty())
         {
-            return response()->json(['error' => 'Se debe especificar al menos un valor diferente para actualizar.', 'codigo' => 422], 422);   
+            return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar.', 422);   
         }
 
         $usuario->save();
 
-        return response()->json(['datos' => $usuario], 200);
+        return $this->showOne($usuario);
     }
 
     /**
@@ -144,11 +144,23 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-        return response()->json(['datos', $usuario], 200);
+        return $this->showOne($usuario, 200);
 
-        /* Eliminar usuario
-           $usuario->delete();
-        */
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function EliminarUsuario($id)
+    {
+        $usuario = Usuario::findOrFail($id);
+
+        $usuario->delete($id);
+
+        return $this->showOne($usuario, 200);
 
     }
 }

@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Publicacion;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
-class PublicacionController extends Controller
+class PublicacionController extends ApiController
 {
+
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     /**
      * Display a listing of the resource.
      *
