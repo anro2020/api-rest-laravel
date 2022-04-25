@@ -23,6 +23,10 @@ use Illuminate\Database\Eloquent\Model;
         {
             return $this->successResponse(['datos'=> $instancia], $codigo);
         }
+        protected function showMessage($mensaje, $codigo = 200)
+        {
+            return $this->successResponse(['mensaje' => $mensaje], $codigo);
+        }
     }
 
 ?>

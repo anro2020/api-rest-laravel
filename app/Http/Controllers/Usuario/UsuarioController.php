@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Usuario;
 
 use App\Http\Controllers\ApiController;
+use App\Mail\UsuarioCreado;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UsuarioController extends ApiController
 {
@@ -162,5 +164,30 @@ class UsuarioController extends ApiController
 
         return $this->showOne($usuario, 200);
 
+    }
+
+    public function VerificarUsuario($token)
+    {
+        $usuario = Usuario::where('usu_token_verificacion', $token)->firstOrFail();
+
+        $usuario->usu_verificado = Usuario::USUARIO_VERIFICADO;
+
+        $usuario->usu_token_verificacion= null;
+
+        $usuario->save();
+
+        return $this->showMessage('La cuenta ha sido verificada.');
+    }
+
+    public function ReenviarCorreo(Usuario $usuario)
+    {
+        if ($usuario->esVerificado()) 
+        {
+            return $this->errorResponse('Este usuario ya ha sido verificado.', 409);
+        }
+
+        Mail::to('19170163@uttcampus.edu.mx')->send(new UsuarioCreado($usuario));
+
+        return $this->showMessage('El correo de verificacion se ha reenviado.');
     }
 }

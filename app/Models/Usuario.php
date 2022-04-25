@@ -36,7 +36,7 @@ class Usuario extends Model
 
     protected $hidden = [
         'usu_contrasenia',
-        'usu_token_verificacion',
+        //'usu_token_verificacion',
     ];
 
     //Mutadores, antes de ser insertado a la base de datos

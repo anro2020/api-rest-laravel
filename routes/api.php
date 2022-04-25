@@ -25,6 +25,8 @@ Route::controller(UsuarioController::class)->group(function (){
     Route::put('/EditarUsuario/{id}',  'EditarUsuario');
     Route::put('/DesactivarUsuario/{id}', 'DesactivarUsuario');
     Route::delete('/EliminarUsuario/{id}', 'EliminarUsuario');
+    Route::get('/VerificarUsuario/{token}', 'VerificarUsuario')->name('verificar');
+    Route::get('/Usuario/{usuario}/ReenvioCorreo', 'ReenviarCorreo')->name('reenviarCorreo');
 });
 
 Route::controller(UsuarioPublicacionController::class)->group(function (){
