@@ -28,14 +28,18 @@ class Usuario extends Model
         'usu_nombre',
         'usu_correo',
         'usu_contrasenia',
-        'usu_admin',
-        'usu_verificado',
-        'usu_token_verificacion',
-        'usu_activo'
+        //'usu_admin',
+        //'usu_verificado',
+        //'usu_token_verificacion',
+        //'usu_activo'
+        
     ];
 
     protected $hidden = [
         'usu_contrasenia',
+        'usu_verificado',
+        'usu_token_verificacion',
+        'usu_activo'
         //'usu_token_verificacion',
     ];
 

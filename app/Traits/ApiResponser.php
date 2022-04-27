@@ -17,11 +17,11 @@ use Illuminate\Database\Eloquent\Model;
         }
         protected function showAll(Collection $coleccion, $codigo = 200)
         {
-            return $this->successResponse(['datos'=> $coleccion], $codigo);
+            return $this->successResponse($coleccion, $codigo);
         }
         protected function showOne(Model $instancia, $codigo = 200)
         {
-            return $this->successResponse(['datos'=> $instancia], $codigo);
+            return $this->successResponse($instancia, $codigo);
         }
         protected function showMessage($mensaje, $codigo = 200)
         {
